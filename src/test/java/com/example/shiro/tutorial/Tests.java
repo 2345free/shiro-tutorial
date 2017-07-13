@@ -30,13 +30,13 @@ public class Tests {
 			// 5、身份验证失败
 		}
 
-		Assert.assertEquals(true, subject.isAuthenticated()); // 断言用户已经登录
+		Assert.assertTrue(subject.isAuthenticated()); // 断言用户已经登录
 
 		// 得到一个身份集合，其包含了Realm验证成功的身份信息
 		PrincipalCollection principalCollection = subject.getPrincipals();
 		Assert.assertEquals(1, principalCollection.asList().size());
 
-		Assert.assertEquals(true, subject.hasRole("role1"));
+		Assert.assertTrue(subject.hasRole("role1"));
 
 		// 6、退出
 		subject.logout();
