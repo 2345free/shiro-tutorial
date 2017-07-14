@@ -1,4 +1,4 @@
-package com.example.shiro.tutorial;
+package com.example.shiro;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
