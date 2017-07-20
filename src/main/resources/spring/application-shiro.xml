@@ -39,14 +39,6 @@
         <property name="cachingEnabled" value="false"/>
 	</bean>
 	
-	<!-- 基于Form表单的身份验证过滤器 -->
-    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
-        <property name="usernameParam" value="username"/>
-        <property name="passwordParam" value="password"/>
-        <property name="rememberMeParam" value="rememberMe"/>
-        <property name="loginUrl" value="/login"/>
-    </bean>
-    
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 	
@@ -74,20 +66,30 @@
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
     
+    <!-- 基于Form表单的身份验证过滤器 -->
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="usernameParam" value="username"/>
+        <property name="passwordParam" value="password"/>
+        <property name="rememberMeParam" value="rememberMe"/>
+        <property name="loginUrl" value="/login"/>
+    </bean>
+    
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 	    <property name="securityManager" ref="securityManager"/>
 	    <property name="loginUrl" value="/login"/>
 	    <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="sysUser" value-ref="sysUserFilter"/>
+                <entry key="forceLogout" value-ref="forceLogoutFilter"/>
             </util:map>
         </property>
 	    <property name="filterChainDefinitions">
 	        <value>
 	        	/login = authc
                 /logout = logout
-	            /admin/** = authc, roles[admin]
-	            /** = authc
+	            /authenticated = authc
+                /** = forceLogout,user,sysUser
 	        </value>
 	    </property>
 	</bean>

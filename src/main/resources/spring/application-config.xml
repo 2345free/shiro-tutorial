@@ -11,5 +11,10 @@
          </context:component-scan> 
          
          <context:property-placeholder location="classpath:application.properties"/>
+         
+         <!-- 控制器异常处理 -->
+	    <bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" />
+	    
+		<bean class="com.example.shiro.web.exception.DefaultExceptionHandler" />
 
 </beans>
