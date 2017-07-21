@@ -65,12 +65,6 @@
         <property name="suffix" value=".jsp"/>
 	</bean>
 	
-	<mvc:annotation-driven>
-        <mvc:argument-resolvers>
-            <bean class="com.example.shiro.web.bind.method.CurrentUserMethodArgumentResolver"/>
-        </mvc:argument-resolvers>
-    </mvc:annotation-driven>
-
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
 
