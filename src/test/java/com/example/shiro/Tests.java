@@ -1,4 +1,4 @@
-package com.example.shiro.tutorial;
+package com.example.shiro;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
