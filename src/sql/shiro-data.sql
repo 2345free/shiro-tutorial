@@ -1,3 +1,4 @@
+use shiro;
 
 delete from sys_user;
 delete from sys_role;

@@ -58,7 +58,8 @@
         
     </mvc:annotation-driven>
     
-    <context:component-scan base-package="com.example.shiro.web" /> 
+    <context:property-placeholder location="classpath:application.properties"/>
+    <context:component-scan base-package="com.example.shiro" />
     
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
