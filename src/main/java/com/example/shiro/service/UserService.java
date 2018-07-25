@@ -1,14 +1,15 @@
 package com.example.shiro.service;
 
+import com.example.shiro.entity.User;
+
 import java.util.List;
 import java.util.Set;
-
-import com.example.shiro.entity.User;
 
 public interface UserService {
 
     /**
      * 创建用户
+     *
      * @param user
      */
     public User createUser(User user);
@@ -19,6 +20,7 @@ public interface UserService {
 
     /**
      * 修改密码
+     *
      * @param userId
      * @param newPassword
      */
@@ -31,6 +33,7 @@ public interface UserService {
 
     /**
      * 根据用户名查找用户
+     *
      * @param username
      * @return
      */
@@ -38,6 +41,7 @@ public interface UserService {
 
     /**
      * 根据用户名查找其角色
+     *
      * @param username
      * @return
      */
@@ -45,6 +49,7 @@ public interface UserService {
 
     /**
      * 根据用户名查找其权限
+     *
      * @param username
      * @return
      */

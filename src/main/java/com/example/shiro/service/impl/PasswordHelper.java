@@ -1,13 +1,13 @@
-package com.example.shiro.service;
+package com.example.shiro.service.impl;
 
+import com.example.shiro.entity.User;
+import com.example.shiro.service.IPasswordHelper;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import com.example.shiro.entity.User;
 
 @Service
 public class PasswordHelper implements IPasswordHelper {
@@ -20,22 +20,22 @@ public class PasswordHelper implements IPasswordHelper {
     private int hashIterations = 2;
 
     @Override
-	public void setRandomNumberGenerator(RandomNumberGenerator randomNumberGenerator) {
+    public void setRandomNumberGenerator(RandomNumberGenerator randomNumberGenerator) {
         this.randomNumberGenerator = randomNumberGenerator;
     }
 
     @Override
-	public void setAlgorithmName(String algorithmName) {
+    public void setAlgorithmName(String algorithmName) {
         this.algorithmName = algorithmName;
     }
 
     @Override
-	public void setHashIterations(int hashIterations) {
+    public void setHashIterations(int hashIterations) {
         this.hashIterations = hashIterations;
     }
 
     @Override
-	public void encryptPassword(User user) {
+    public void encryptPassword(User user) {
 
         user.setSalt(randomNumberGenerator.nextBytes().toHex());
 

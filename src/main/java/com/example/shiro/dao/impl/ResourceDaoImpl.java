@@ -1,10 +1,7 @@
-package com.example.shiro.dao;
+package com.example.shiro.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.example.shiro.dao.ResourceDao;
+import com.example.shiro.entity.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,15 +9,18 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.example.shiro.entity.Resource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class ResourceDaoImpl implements ResourceDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @Override
-	public Resource createResource(final Resource resource) {
+    public Resource createResource(final Resource resource) {
         final String sql = "insert into sys_resource(name, type, url, permission, parent_id, parent_ids, available) values(?,?,?,?,?,?,?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -53,7 +53,7 @@ public class ResourceDaoImpl implements ResourceDao {
     }
 
     @Override
-	public void deleteResource(Long resourceId) {
+    public void deleteResource(Long resourceId) {
         Resource resource = findOne(resourceId);
         final String deleteSelfSql = "delete from sys_resource where id=?";
         jdbcTemplate.update(deleteSelfSql, resourceId);
@@ -66,7 +66,7 @@ public class ResourceDaoImpl implements ResourceDao {
     public Resource findOne(Long resourceId) {
         final String sql = "select id, name, type, url, permission, parent_id, parent_ids, available from sys_resource where id=?";
         List<Resource> resourceList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Resource.class), resourceId);
-        if(resourceList.size() == 0) {
+        if (resourceList.size() == 0) {
             return null;
         }
         return resourceList.get(0);

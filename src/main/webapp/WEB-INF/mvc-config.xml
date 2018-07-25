@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-     <mvc:annotation-driven>
-    	<mvc:message-converters register-defaults="true">
-    	
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                 <property name="supportedMediaTypes">
-                    <list>    
+                <property name="supportedMediaTypes">
+                    <list>
                         <value>text/html;charset=UTF-8</value>
-                    </list>    
+                    </list>
                 </property>
             </bean>
             <!-- <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
@@ -24,48 +25,48 @@
 					</list>
 				</property>
 			</bean> -->
-			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="objectMapper">
-					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
-						<property name="propertyNamingStrategy">
-							<!-- 下划线转驼峰命名策略 -->
-							<bean class="com.fasterxml.jackson.databind.PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy" />
-						</property>
-						<!-- 不解析对象属为null -->
-						<property name="serializationInclusion" value="NON_NULL" />
-						<!-- josn全局日期格式 -->
-						<property name="dateFormat">
-	                        <bean class="java.text.SimpleDateFormat">
-	                            <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
-	                        </bean>
+            <bean
+                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="propertyNamingStrategy">
+                            <!-- 下划线转驼峰命名策略 -->
+                            <bean class="com.fasterxml.jackson.databind.PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy"/>
                         </property>
-					</bean>
-				</property>
-				<property name="supportedMediaTypes">
-					<list>
-						<value>application/json; charset=UTF-8</value>
-					</list>
-				</property>
-			</bean>
+                        <!-- 不解析对象属为null -->
+                        <property name="serializationInclusion" value="NON_NULL"/>
+                        <!-- josn全局日期格式 -->
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json; charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
         </mvc:message-converters>
-        
+
         <!-- 自定义参数注解(注入@CurrentUser 参数) -->
         <mvc:argument-resolvers>
             <bean class="com.example.shiro.web.bind.method.CurrentUserMethodArgumentResolver"/>
         </mvc:argument-resolvers>
-        
-        
+
+
     </mvc:annotation-driven>
-    
+
     <context:property-placeholder location="classpath:application.properties"/>
-    <context:component-scan base-package="com.example.shiro" />
-    
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <context:component-scan base-package="com.example.shiro"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
-	</bean>
-	
+    </bean>
+
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
 

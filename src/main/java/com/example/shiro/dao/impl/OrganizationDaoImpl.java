@@ -1,10 +1,7 @@
-package com.example.shiro.dao;
+package com.example.shiro.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.example.shiro.dao.OrganizationDao;
+import com.example.shiro.entity.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,16 +9,19 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.example.shiro.entity.Organization;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class OrganizationDaoImpl implements OrganizationDao {
-    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
-	public Organization createOrganization(final Organization organization) {
+    public Organization createOrganization(final Organization organization) {
         final String sql = "insert into sys_organization( name, parent_id, parent_ids, available) values(?,?,?,?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -51,7 +51,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     }
 
     @Override
-	public void deleteOrganization(Long organizationId) {
+    public void deleteOrganization(Long organizationId) {
         Organization organization = findOne(organizationId);
         final String deleteSelfSql = "delete from sys_organization where id=?";
         jdbcTemplate.update(deleteSelfSql, organizationId);
@@ -64,7 +64,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     public Organization findOne(Long organizationId) {
         final String sql = "select id, name, parent_id, parent_ids, available from sys_organization where id=?";
         List<Organization> organizationList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Organization.class), organizationId);
-        if(organizationList.size() == 0) {
+        if (organizationList.size() == 0) {
             return null;
         }
         return organizationList.get(0);

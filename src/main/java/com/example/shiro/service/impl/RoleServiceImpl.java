@@ -1,14 +1,15 @@
-package com.example.shiro.service;
+package com.example.shiro.service.impl;
+
+import com.example.shiro.dao.RoleDao;
+import com.example.shiro.entity.Role;
+import com.example.shiro.service.ResourceService;
+import com.example.shiro.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.shiro.dao.RoleDao;
-import com.example.shiro.entity.Role;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -19,17 +20,17 @@ public class RoleServiceImpl implements RoleService {
     private ResourceService resourceService;
 
     @Override
-	public Role createRole(Role role) {
+    public Role createRole(Role role) {
         return roleDao.createRole(role);
     }
 
     @Override
-	public Role updateRole(Role role) {
+    public Role updateRole(Role role) {
         return roleDao.updateRole(role);
     }
 
     @Override
-	public void deleteRole(Long roleId) {
+    public void deleteRole(Long roleId) {
         roleDao.deleteRole(roleId);
     }
 
@@ -46,9 +47,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Set<String> findRoles(Long... roleIds) {
         Set<String> roles = new HashSet<String>();
-        for(Long roleId : roleIds) {
+        for (Long roleId : roleIds) {
             Role role = findOne(roleId);
-            if(role != null) {
+            if (role != null) {
                 roles.add(role.getRole());
             }
         }
@@ -58,9 +59,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Set<String> findPermissions(Long[] roleIds) {
         Set<Long> resourceIds = new HashSet<Long>();
-        for(Long roleId : roleIds) {
+        for (Long roleId : roleIds) {
             Role role = findOne(roleId);
-            if(role != null) {
+            if (role != null) {
                 resourceIds.addAll(role.getResourceIds());
             }
         }

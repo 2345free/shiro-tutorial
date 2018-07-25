@@ -1,10 +1,7 @@
-package com.example.shiro.dao;
+package com.example.shiro.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-
+import com.example.shiro.dao.RoleDao;
+import com.example.shiro.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,16 +9,19 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.example.shiro.entity.Role;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @Override
-	public Role createRole(final Role role) {
+    public Role createRole(final Role role) {
         final String sql = "insert into sys_role(role, description, resource_ids, available) values(?,?,?,?)";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
@@ -51,7 +51,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-	public void deleteRole(Long roleId) {
+    public void deleteRole(Long roleId) {
         final String sql = "delete from sys_role where id=?";
         jdbcTemplate.update(sql, roleId);
     }
@@ -61,7 +61,7 @@ public class RoleDaoImpl implements RoleDao {
     public Role findOne(Long roleId) {
         final String sql = "select id, role, description, resource_ids as resourceIdsStr, available from sys_role where id=?";
         List<Role> roleList = jdbcTemplate.query(sql, new BeanPropertyRowMapper(Role.class), roleId);
-        if(roleList.size() == 0) {
+        if (roleList.size() == 0) {
             return null;
         }
         return roleList.get(0);

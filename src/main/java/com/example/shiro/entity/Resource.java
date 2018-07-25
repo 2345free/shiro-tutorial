@@ -3,133 +3,133 @@ package com.example.shiro.entity;
 import java.io.Serializable;
 
 public class Resource implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	private Long id; // 编号
-	private String name; //资源名称
-	private ResourceType type = ResourceType.menu; //资源类型
-	private String url; //资源路径
-	private String permission; //权限字符串
-	private Long parentId; //父编号
-	private String parentIds; //父编号列表
-	private Boolean available = Boolean.FALSE;
+    private Long id; // 编号
+    private String name; //资源名称
+    private ResourceType type = ResourceType.menu; //资源类型
+    private String url; //资源路径
+    private String permission; //权限字符串
+    private Long parentId; //父编号
+    private String parentIds; //父编号列表
+    private Boolean available = Boolean.FALSE;
 
-	public static enum ResourceType {
-		menu("菜单"), button("按钮");
+    public Long getId() {
+        return id;
+    }
 
-		private final String info;
-		private ResourceType(String info) {
-			this.info = info;
-		}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-		public String getInfo() {
-			return info;
-		}
-	}
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public ResourceType getType() {
+        return type;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getPermission() {
+        return permission;
+    }
 
-	public ResourceType getType() {
-		return type;
-	}
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 
-	public void setType(ResourceType type) {
-		this.type = type;
-	}
+    public Long getParentId() {
+        return parentId;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public String getParentIds() {
+        return parentIds;
+    }
 
-	public String getPermission() {
-		return permission;
-	}
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
+    }
 
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
+    public Boolean getAvailable() {
+        return available;
+    }
 
-	public Long getParentId() {
-		return parentId;
-	}
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
+    public boolean isRootNode() {
+        return parentId == 0;
+    }
 
-	public String getParentIds() {
-		return parentIds;
-	}
+    public String makeSelfAsParentIds() {
+        return getParentIds() + getId() + "/";
+    }
 
-	public void setParentIds(String parentIds) {
-		this.parentIds = parentIds;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	public Boolean getAvailable() {
-		return available;
-	}
+        Resource resource = (Resource) o;
 
-	public void setAvailable(Boolean available) {
-		this.available = available;
-	}
+        if (id != null ? !id.equals(resource.id) : resource.id != null) return false;
 
-	public boolean isRootNode() {
-		return parentId == 0;
-	}
+        return true;
+    }
 
-	public String makeSelfAsParentIds() {
-		return getParentIds() + getId() + "/";
-	}
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 
-		Resource resource = (Resource) o;
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", permission='" + permission + '\'' +
+                ", parentId=" + parentId +
+                ", parentIds='" + parentIds + '\'' +
+                ", available=" + available +
+                '}';
+    }
 
-		if (id != null ? !id.equals(resource.id) : resource.id != null) return false;
+    public static enum ResourceType {
+        menu("菜单"), button("按钮");
 
-		return true;
-	}
+        private final String info;
 
-	@Override
-	public int hashCode() {
-		return id != null ? id.hashCode() : 0;
-	}
+        private ResourceType(String info) {
+            this.info = info;
+        }
 
-	@Override
-	public String toString() {
-		return "Resource{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", type=" + type +
-				", permission='" + permission + '\'' +
-				", parentId=" + parentId +
-				", parentIds='" + parentIds + '\'' +
-				", available=" + available +
-				'}';
-	}
+        public String getInfo() {
+            return info;
+        }
+    }
 }

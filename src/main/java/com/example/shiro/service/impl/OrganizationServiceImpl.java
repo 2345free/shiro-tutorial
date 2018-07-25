@@ -1,12 +1,12 @@
-package com.example.shiro.service;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.example.shiro.service.impl;
 
 import com.example.shiro.dao.OrganizationDao;
 import com.example.shiro.entity.Organization;
+import com.example.shiro.service.OrganizationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
