@@ -31,6 +31,7 @@
 
         <!-- Test -->
         <junit.version>4.12</junit.version>
+        <mysql.version>5.1.46</mysql.version>
 
     </properties>
 
@@ -69,8 +70,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.42</version>
+            <version>${mysql.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -153,12 +155,6 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
             <version>${shiro.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.42</version>
         </dependency>
 
         <dependency>
